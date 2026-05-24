@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="40dp"
+    android:background="#F5F7FA">
+
+    <TextView
+        android:id="@+id/tv_cloth_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="穿搭建议"
+        android:textSize="24sp"
+        android:textStyle="bold"/>
+
+    <Button
+        android:id="@+id/btn_cloth_back"
+        android:layout_width="220dp"
+        android:layout_height="55dp"
+        android:text="返回"
+        android:textColor="#fff"
+        android:background="@drawable/btn_grey"
+        android:layout_marginTop="30dp"/>
+
+</LinearLayout>
