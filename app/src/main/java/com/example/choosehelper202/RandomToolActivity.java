@@ -8,46 +8,40 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Random;
 
 public class RandomToolActivity extends AppCompatActivity {
+    EditText etMin, etMax;
+    TextView tvResult;
+    Button btnNum, btnLetter, btnBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_random_tool);
 
-        EditText etMin = findViewById(R.id.et_min);
-        EditText etMax = findViewById(R.id.et_max);
-        TextView tvNumRes = findViewById(R.id.tv_num_res);
-        Button btnNum = findViewById(R.id.btn_num);
+        etMin = findViewById(R.id.et_min);
+        etMax = findViewById(R.id.et_max);
+        tvResult = findViewById(R.id.tv_result);
+        btnNum = findViewById(R.id.btn_random_num);
+        btnLetter = findViewById(R.id.btn_random_letter);
+        btnBack = findViewById(R.id.btn_back);
 
-        EditText etLen = findViewById(R.id.et_len);
-        TextView tvLetterRes = findViewById(R.id.tv_letter_res);
-        Button btnLetter = findViewById(R.id.btn_letter);
-
+        // 随机数字
         btnNum.setOnClickListener(v -> {
             try {
-                int min = Integer.parseInt(etMin.getText().toString());
-                int max = Integer.parseInt(etMax.getText().toString());
-                int result = new Random().nextInt(max - min + 1) + min;
-                tvNumRes.setText("随机数：" + result);
+                int min = Integer.parseInt(etMin.getText().toString().trim());
+                int max = Integer.parseInt(etMax.getText().toString().trim());
+                int random = new Random().nextInt(max - min + 1) + min;
+                tvResult.setText("随机数字：" + random);
             } catch (Exception e) {
-                tvNumRes.setText("输入错误");
+                tvResult.setText("请输入有效数字");
             }
         });
 
+        // 随机字母
         btnLetter.setOnClickListener(v -> {
-            try {
-                int len = Integer.parseInt(etLen.getText().toString());
-                StringBuilder sb = new StringBuilder();
-                Random random = new Random();
-                for (int i = 0; i < len; i++) {
-                    char c = (char) (random.nextInt(26) + 'A');
-                    sb.append(c);
-                }
-                tvLetterRes.setText("随机字母：" + sb);
-            } catch (Exception e) {
-                tvLetterRes.setText("输入错误");
-            }
+            char c = (char) (new Random().nextInt(26) + 'A');
+            tvResult.setText("随机字母：" + c);
         });
 
-        findViewById(R.id.btn_back).setOnClickListener(v -> finish());
+        btnBack.setOnClickListener(v -> finish());
     }
 }

@@ -1,24 +1,12 @@
 package com.example.choosehelper202;
 
-import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-public class RandomClothesActivity extends AppCompatActivity {
-
+public class RandomClothesActivity extends BaseRandomActivity {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_random_clothes);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+    protected void initData() {
+        tvTitle.setText("穿搭方案");
+        list.add("休闲风");
+        list.add("运动风");
+        list.add("商务风");
+        list.add("可爱风");
     }
 }

@@ -1,5 +1,4 @@
 package com.example.choosehelper202;
-
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -11,76 +10,40 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 
 public abstract class BaseRandomActivity extends AppCompatActivity {
-
-    protected ArrayList<String> list;
+    protected ArrayList<String> list=new ArrayList<>();
     protected ArrayAdapter<String> adapter;
-    protected EditText etInput;
-    protected ListView lvList;
-    protected Button btnAdd, btnRandom, btnBack;
     protected TextView tvTitle;
-
+    protected ListView lv;
+    protected EditText et;
+    protected Button btnAdd,btnRandom,btnBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base_random);
-
-        initView();
+        tvTitle=findViewById(R.id.tv_title);
+        lv=findViewById(R.id.lv_list);
+        et=findViewById(R.id.et_input);
+        btnAdd=findViewById(R.id.btn_add);
+        btnRandom=findViewById(R.id.btn_random);
+        btnBack=findViewById(R.id.btn_back);
+        adapter=new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,list);
+        lv.setAdapter(adapter);
         initData();
-        setupListeners();
+        setEvent();
     }
-
-    private void initView() {
-        tvTitle = findViewById(R.id.tv_title);
-        lvList = findViewById(R.id.lv_list);
-        etInput = findViewById(R.id.et_input);
-        btnAdd = findViewById(R.id.btn_add);
-        btnRandom = findViewById(R.id.btn_random);
-        btnBack = findViewById(R.id.btn_back);
-    }
-
     protected abstract void initData();
-
-    private void setupListeners() {
-        btnAdd.setOnClickListener(v -> {
-            String text = etInput.getText().toString().trim();
-            if (!text.isEmpty()) {
-                list.add(text);
-                adapter.notifyDataSetChanged();
-                etInput.setText("");
-            }
+    private void setEvent(){
+        btnAdd.setOnClickListener(v->{
+            String s=et.getText().toString().trim();
+            if(!s.isEmpty()){list.add(s);adapter.notifyDataSetChanged();et.setText("");}
         });
-
-        btnRandom.setOnClickListener(v -> {
-            if (!list.isEmpty()) {
-                int index = (int) (Math.random() * list.size());
-                tvTitle.setText("结果：" + list.get(index));
-            }
+        btnRandom.setOnClickListener(v->{
+            if(!list.isEmpty()) tvTitle.setText("结果："+list.get((int)(Math.random()*list.size())));
         });
-
-        lvList.setOnItemLongClickListener((parent, view, position, id) -> {
-            new AlertDialog.Builder(this)
-                    .setItems(new String[]{"删除", "修改"}, (dialog, which) -> {
-                        if (which == 0) {
-                            list.remove(position);
-                        } else {
-                            EditText editText = new EditText(this);
-                            editText.setText(list.get(position));
-                            new AlertDialog.Builder(this)
-                                    .setView(editText)
-                                    .setPositiveButton("确定", (d, w) -> {
-                                        String newText = editText.getText().toString().trim();
-                                        if (!newText.isEmpty()) {
-                                            list.set(position, newText);
-                                        }
-                                    })
-                                    .show();
-                        }
-                        adapter.notifyDataSetChanged();
-                    })
-                    .show();
+        btnBack.setOnClickListener(v->finish());
+        lv.setOnItemLongClickListener((a,v,p,id)->{
+            new AlertDialog.Builder(this).setItems(new String[]{"删除"},(d,w)->{list.remove(p);adapter.notifyDataSetChanged();}).show();
             return true;
         });
-
-        btnBack.setOnClickListener(v -> finish());
     }
 }

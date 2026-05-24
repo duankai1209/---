@@ -1,5 +1,4 @@
 package com.example.choosehelper202;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
@@ -8,20 +7,21 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class RegisterActivity extends AppCompatActivity {
+    EditText etAccount,etPwd;
+    Button btnRegister;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        EditText etUser = findViewById(R.id.et_user);
-        EditText etPass = findViewById(R.id.et_pass);
-        Button btnReg = findViewById(R.id.btn_register);
-        SharedPreferences.Editor ed = getSharedPreferences("user", MODE_PRIVATE).edit();
-
-        btnReg.setOnClickListener(v -> {
-            String u = etUser.getText().toString();
-            String p = etPass.getText().toString();
-            ed.putString(u,p).apply();
-            Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
+        etAccount=findViewById(R.id.et_account);
+        etPwd=findViewById(R.id.et_pwd);
+        btnRegister=findViewById(R.id.btn_register);
+        btnRegister.setOnClickListener(v->{
+            String user=etAccount.getText().toString().trim();
+            String pwd=etPwd.getText().toString().trim();
+            if(user.isEmpty()||pwd.isEmpty()){Toast.makeText(this,"请输入完整信息",Toast.LENGTH_SHORT).show();return;}
+            getSharedPreferences("user_info",MODE_PRIVATE).edit().putString("account",user).putString("password",pwd).apply();
+            Toast.makeText(this,"注册成功",Toast.LENGTH_SHORT).show();
             finish();
         });
     }
