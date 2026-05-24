@@ -11,14 +11,14 @@
         android:layout_height="wrap_content"
         android:text="标题"
         android:textSize="22sp"
-        android:gravity="center"
-        android:layout_marginBottom="16dp"/>
+        android:gravity="center"/>
 
     <ListView
         android:id="@+id/lv_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"/>
 
     <EditText
         android:id="@+id/et_input"
@@ -29,7 +29,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn_add"
@@ -43,7 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="随机选择"/>
+            android:text="随机"/>
 
         <Button
             android:id="@+id/btn_back"
@@ -51,7 +52,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="返回"/>
-
     </LinearLayout>
 
 </LinearLayout>

@@ -1,31 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.example.choosehelper202">
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <application android:allowBackup="true" android:icon="@mipmap/ic_launcher" android:label="选择困难器" android:theme="@style/Theme.ChooseHelper202">
-        <activity android:name=".SplashActivity"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.choosehelper202">
+
+    <!-- 网络权限（天气必须要） -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="选择困难器"
+        android:theme="@style/Theme.ChooseHelper202">
+
+        <!-- ✅ 开屏页（设为启动页）-->
+        <activity
+            android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"/>
-        <activity android:name=".RegisterActivity"/>
-        <activity android:name=".ResetPasswordActivity"/>
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".UserActivity"/>
-        <activity android:name=".BaseRandomActivity"/>
-        <activity android:name=".EatActivity"/>
-        <activity android:name=".DrinkActivity"/>
-        <activity android:name=".ClothActivity"/>
-        <activity android:name=".DateActivity"/>
-        <activity android:name=".WeatherActivity"/>
-        <activity android:name=".RandomToolActivity"/>
-        <activity android:name=".LotteryActivity"/>
-        <activity android:name=".MottoActivity"/>
-        <activity android:name=".SportActivity"/>
-        <activity android:name=".ScenicActivity"/>
-        <activity android:name=".GiftActivity"/>
+
+        <!-- 下面是所有正常页面 -->
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".ResetPasswordActivity" />
+        <activity android:name=".UserActivity" />
+        <activity android:name=".EatActivity" />
+        <activity android:name=".DateActivity" />
+        <activity android:name=".ClothActivity" />
+        <activity android:name=".WeatherActivity" />
+        <activity android:name=".RandomToolActivity" />
+        <activity android:name=".SettingActivity" />
+        <activity android:name=".LotteryActivity" />
+        <activity android:name=".MottoActivity" />
+        <activity android:name=".SportActivity" />
+        <activity android:name=".ScenicActivity" />
+        <activity android:name=".GiftActivity" />
+        <activity android:name=".ScheduleActivity" />
+        <activity android:name=".StudyActivity" />
+
     </application>
+
 </manifest>

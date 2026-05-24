@@ -5,17 +5,36 @@
     android:orientation="vertical"
     android:padding="20dp">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="背景设置"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"/>
+
+    <ImageView
+        android:id="@+id/iv_bg_preview"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerCrop"
+        android:background="#f0f0f0"/>
+
     <Button
         android:id="@+id/btn_select_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="选择背景图片"/>
+        android:text="选择背景图片"
+        android:background="@drawable/btn_purple"
+        android:layout_marginTop="20dp"/>
 
     <Button
         android:id="@+id/btn_back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="返回"
-        android:layout_marginTop="20dp"/>
+        android:background="@drawable/btn_purple"
+        android:layout_marginTop="10dp"/>
 
 </LinearLayout>

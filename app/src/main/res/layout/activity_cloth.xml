@@ -1,4 +1,57 @@
-<?xml version="1.0" encoding="utf-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical" android:padding="30dp" android:background="#F5F7FA">
-    <TextView android:id="@+id/tv_cloth_tip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="22sp" android:gravity="center"/>
-    <Button android:id="@+id/btn_cloth_back" android:layout_width="220dp" android:layout_height="55dp" android:text="返回" android:background="@drawable/btn_grey" android:textColor="#fff" android:layout_marginTop="30dp"/>
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tv_weather_suggest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="天气穿搭建议"
+        android:textSize="16sp"
+        android:background="#e3f2fd"
+        android:padding="10dp"/>
+
+    <Button
+        android:id="@+id/btn_random_set"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="随机搭配套装"
+        android:background="@drawable/btn_purple"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"/>
+
+    <Button
+        android:id="@+id/btn_save_set"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="保存当前套装"
+        android:background="@drawable/btn_purple"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/btn_random_saved_set"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="随机已保存套装"
+        android:background="@drawable/btn_purple"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="返回"
+        android:background="@drawable/btn_purple"
+        android:layout_marginTop="20dp"
+        android:onClick="finish"/>
+
 </LinearLayout>
