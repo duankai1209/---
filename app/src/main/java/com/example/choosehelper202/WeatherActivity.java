@@ -16,7 +16,7 @@ import org.json.JSONObject;
 public class WeatherActivity extends AppCompatActivity {
     private TextView tvWeather;
     private EditText etCity;
-    private String weatherInfo = "";
+    private String tempStr = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class WeatherActivity extends AppCompatActivity {
         btnBack.setOnClickListener(v -> finish());
         btnToCloth.setOnClickListener(v -> {
             Intent intent = new Intent(this, ClothActivity.class);
-            intent.putExtra("weather", weatherInfo);
+            intent.putExtra("temp", tempStr);
             startActivity(intent);
         });
     }
@@ -56,18 +56,16 @@ public class WeatherActivity extends AppCompatActivity {
                 String temp = current.getString("temp_C");
                 String desc = current.getJSONArray("weatherDesc").getJSONObject(0).getString("value");
                 String humi = current.getString("humidity");
-                String press = current.getString("pressure");
                 String wind = current.getString("windspeedKmph");
-                String visi = current.getString("visibility");
                 String feel = current.getString("FeelsLikeC");
-
-                weatherInfo = temp+"℃";
+                String visi = current.getString("visibility");
+                tempStr = temp;
 
                 new Handler(Looper.getMainLooper()).post(() -> {
-                    tvWeather.setText("天气："+desc+"\n温度："+temp+"℃\n体感："+feel+"℃\n湿度："+humi+"%\n气压："+press+"hPa\n风速："+wind+"km/h\n能见度："+visi+"km");
+                    tvWeather.setText("城市："+city+"\n天气："+desc+"\n温度："+temp+"℃\n体感："+feel+"℃\n湿度："+humi+"%\n风速："+wind+"km/h\n能见度："+visi+"km");
                 });
             } catch (Exception e) {
-                new Handler(Looper.getMainLooper()).post(() -> tvWeather.setText("获取失败"));
+                new Handler(Looper.getMainLooper()).post(() -> tvWeather.setText("获取失败，请输入拼音城市"));
             }
         }).start();
     }

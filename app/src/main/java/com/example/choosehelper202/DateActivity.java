@@ -8,21 +8,25 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class DateActivity extends AppCompatActivity {
-    private ArrayList<String> dateList;
-    private ArrayAdapter<String> adapter;
-    private TextView tvResult;
+    ArrayList<String> dateList;
+    ArrayAdapter<String> adapter;
+    TextView tvResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_date);
+        // 这里改成正确的布局文件名
+        setContentView(R.layout.activity_base_random);
 
-        tvResult = findViewById(R.id.tv_date_result);
-        ListView listView = findViewById(R.id.lv_date_list);
-        EditText etInput = findViewById(R.id.et_date_input);
-        Button btnRandom = findViewById(R.id.btn_date_random);
-        Button btnAdd = findViewById(R.id.btn_date_add);
-        Button btnBack = findViewById(R.id.btn_date_back);
+        TextView tvTitle = findViewById(R.id.tv_title);
+        tvResult = findViewById(R.id.tv_result);
+        ListView listView = findViewById(R.id.lv_list);
+        EditText etInput = findViewById(R.id.et_input);
+        Button btnRandom = findViewById(R.id.btn_random);
+        Button btnAdd = findViewById(R.id.btn_add);
+        Button btnBack = findViewById(R.id.btn_back);
+
+        tvTitle.setText("约会游玩");
 
         dateList = new ArrayList<>();
         dateList.add("看电影");
@@ -36,38 +40,49 @@ public class DateActivity extends AppCompatActivity {
 
         btnRandom.setOnClickListener(v -> {
             if (dateList.isEmpty()) {
-                tvResult.setText("请添加选项");
-                return;
+                tvResult.setText("请先添加约会项目");
+            } else {
+                int randomIndex = new Random().nextInt(dateList.size());
+                tvResult.setText("推荐：" + dateList.get(randomIndex));
             }
-            tvResult.setText("推荐：" + dateList.get(new Random().nextInt(dateList.size())));
         });
 
         btnAdd.setOnClickListener(v -> {
-            String s = etInput.getText().toString().trim();
-            if (!s.isEmpty()) {
-                dateList.add(s);
+            String newItem = etInput.getText().toString().trim();
+            if (!newItem.isEmpty()) {
+                dateList.add(newItem);
                 adapter.notifyDataSetChanged();
                 etInput.setText("");
             }
         });
 
-        listView.setOnItemLongClickListener((parent, view, pos, id) -> {
-            new AlertDialog.Builder(this)
+        listView.setOnItemLongClickListener((parent, view, position, id) -> {
+            new AlertDialog.Builder(DateActivity.this)
                     .setTitle("操作")
-                    .setItems(new String[]{"删除", "修改"}, (d, w) -> {
-                        if (w == 0) {
-                            dateList.remove(pos);
+                    .setItems(new String[]{"删除", "修改"}, (dialog, which) -> {
+                        if (which == 0) {
+                            // 删除
+                            dateList.remove(position);
+                            adapter.notifyDataSetChanged();
                         } else {
-                            EditText edit = new EditText(this);
-                            edit.setText(dateList.get(pos));
-                            new AlertDialog.Builder(this).setView(edit)
-                                    .setPositiveButton("确定", (di, wh) -> {
-                                        String newStr = edit.getText().toString().trim();
-                                        if (!newStr.isEmpty()) dateList.set(pos, newStr);
-                                    }).show();
+                            // 修改
+                            EditText editText = new EditText(DateActivity.this);
+                            editText.setText(dateList.get(position));
+                            new AlertDialog.Builder(DateActivity.this)
+                                    .setTitle("修改内容")
+                                    .setView(editText)
+                                    .setPositiveButton("确定", (d, w) -> {
+                                        String updatedText = editText.getText().toString().trim();
+                                        if (!updatedText.isEmpty()) {
+                                            dateList.set(position, updatedText);
+                                            adapter.notifyDataSetChanged();
+                                        }
+                                    })
+                                    .setNegativeButton("取消", null)
+                                    .show();
                         }
-                        adapter.notifyDataSetChanged();
-                    }).show();
+                    })
+                    .show();
             return true;
         });
 

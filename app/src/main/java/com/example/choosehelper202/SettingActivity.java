@@ -21,10 +21,9 @@ public class SettingActivity extends AppCompatActivity {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                     Uri uri = result.getData().getData();
                     SharedPreferences.Editor editor = getSharedPreferences("bgConfig", MODE_PRIVATE).edit();
-                    editor.putString("custom_bg_uri", uri.toString());
-                    editor.putInt("bg_type", 2);
+                    editor.putString("uri", uri.toString());
                     editor.apply();
-                    Toast.makeText(this, "壁纸已设置", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "设置成功", Toast.LENGTH_SHORT).show();
                     finish();
                 }
             });
@@ -37,29 +36,21 @@ public class SettingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-
         Button btnPick = findViewById(R.id.btn_pick_photo);
         Button btnReset = findViewById(R.id.btn_reset_bg);
 
         btnPick.setOnClickListener(v -> checkPermission());
         btnReset.setOnClickListener(v -> {
-            SharedPreferences.Editor editor = getSharedPreferences("bgConfig", MODE_PRIVATE).edit();
-            editor.putInt("bg_type", 1);
-            editor.apply();
+            getSharedPreferences("bgConfig", MODE_PRIVATE).edit().remove("uri").apply();
             finish();
         });
     }
 
     private void checkPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
-                permissionLauncher.launch(Manifest.permission.READ_MEDIA_IMAGES);
-            } else openAlbum();
-        } else {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                permissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE);
-            } else openAlbum();
-        }
+        String perm = Build.VERSION.SDK_INT >= 33 ? Manifest.permission.READ_MEDIA_IMAGES : Manifest.permission.READ_EXTERNAL_STORAGE;
+        if (ActivityCompat.checkSelfPermission(this, perm) != PackageManager.PERMISSION_GRANTED) {
+            permissionLauncher.launch(perm);
+        } else openAlbum();
     }
 
     private void openAlbum() {

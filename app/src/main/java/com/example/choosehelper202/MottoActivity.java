@@ -1,28 +1,25 @@
 package com.example.choosehelper202;
 
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
+import android.widget.ArrayAdapter;
 import java.util.ArrayList;
-import java.util.Random;
 
-public class MottoActivity extends AppCompatActivity {
+public class MottoActivity extends BaseRandomActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_common);
-        TextView title = findViewById(R.id.tv_title);
-        TextView res = findViewById(R.id.tv_result);
-        Button btn = findViewById(R.id.btn_random);
-        title.setText("每日名言");
+        // 用基类里定义的 tvTitle 来设置标题，而不是直接用不存在的 title 变量
+        tvTitle.setText("名言随机");
+        list = new ArrayList<>();
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+        lvList.setAdapter(adapter);
+    }
 
-        ArrayList<String> list = new ArrayList<>();
+    @Override
+    protected void initData() {
         list.add("坚持就是胜利");
         list.add("努力终有回报");
         list.add("今天也要加油");
-
-        btn.setOnClickListener(v->res.setText(list.get(new Random().nextInt(list.size()))));
-        findViewById(R.id.btn_back).setOnClickListener(v->finish());
     }
 }

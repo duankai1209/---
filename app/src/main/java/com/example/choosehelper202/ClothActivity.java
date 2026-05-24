@@ -1,28 +1,25 @@
 package com.example.choosehelper202;
 
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
+import android.widget.ArrayAdapter;
+import java.util.ArrayList;
 
-public class ClothActivity extends AppCompatActivity {
+public class ClothActivity extends BaseRandomActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cloth);
+        tvTitle.setText("穿搭随机");
+        list = new ArrayList<>();
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+        lvList.setAdapter(adapter);
+    }
 
-        TextView tvTip = findViewById(R.id.tv_cloth_tip);
-        Button btnBack = findViewById(R.id.btn_cloth_back);
-
-        String temp = getIntent().getStringExtra("weather");
-        if(temp!=null){
-            int t = Integer.parseInt(temp);
-            if(t<10) tvTip.setText("天气寒冷\n建议：羽绒服+毛衣+保暖裤");
-            else if(t<20) tvTip.setText("天气凉爽\n建议：卫衣+长裤+外套");
-            else if(t<28) tvTip.setText("天气温暖\n建议：T恤+长裤");
-            else tvTip.setText("天气炎热\n建议：短袖+短裤/裙子");
-        }
-
-        btnBack.setOnClickListener(v -> finish());
+    @Override
+    protected void initData() {
+        list.add("T恤");
+        list.add("衬衫");
+        list.add("卫衣");
+        list.add("外套");
     }
 }

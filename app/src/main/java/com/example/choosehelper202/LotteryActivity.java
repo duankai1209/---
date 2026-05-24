@@ -1,22 +1,27 @@
 package com.example.choosehelper202;
 
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
-import java.util.Random;
+import android.widget.ArrayAdapter;
+import java.util.ArrayList;
 
-public class LotteryActivity extends AppCompatActivity {
+public class LotteryActivity extends BaseRandomActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_common);
-        TextView title = findViewById(R.id.tv_title);
-        TextView res = findViewById(R.id.tv_result);
-        Button btn = findViewById(R.id.btn_random);
-        title.setText("今日运势");
-        String[] arr = {"大吉","吉","中平","小凶","平"};
-        btn.setOnClickListener(v->res.setText("今日运势："+arr[new Random().nextInt(arr.length)]));
-        findViewById(R.id.btn_back).setOnClickListener(v->finish());
+        // 用基类里定义的 tvTitle 来设置标题，而不是直接用 title
+        tvTitle.setText("抽签运势");
+        list = new ArrayList<>();
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+        lvList.setAdapter(adapter);
+    }
+
+    @Override
+    protected void initData() {
+        list.add("大吉");
+        list.add("吉");
+        list.add("中平");
+        list.add("平");
+        list.add("小凶");
     }
 }
