@@ -1,112 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_title"
+    <ImageView
+        android:id="@+id/bg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="约会游玩"
-        android:textSize="22sp"
-        android:gravity="center"
-        android:layout_marginBottom="16dp"/>
-
-    <!-- 标签切换控件 -->
-    <RadioGroup
-        android:id="@+id/rg_date_tabs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="10dp">
-
-        <RadioButton
-            android:id="@+id/rb_indoor"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="室内"
-            android:buttonTint="@color/purple_500"/>
-
-        <RadioButton
-            android:id="@+id/rb_outdoor"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="室外"
-            android:buttonTint="@color/purple_500"/>
-
-    </RadioGroup>
-
-    <ListView
-        android:id="@+id/lv_list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-
-    <EditText
-        android:id="@+id/et_input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="输入自定义内容"
-        android:layout_marginTop="10dp"/>
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#AA000000">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabTextColor="#CCCCCC"
+            app:tabSelectedTextColor="#FFFFFF"
+            app:tabIndicatorColor="#FFFFFF" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <Button
-            android:id="@+id/btn_add"
-            android:layout_width="0dp"
+            android:id="@+id/btn_random_combine"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="添加"
-            android:background="@drawable/btn_purple"/>
-
-        <Button
-            android:id="@+id/btn_random"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="随机选择"
-            android:background="@drawable/btn_purple"/>
-
-        <Button
-            android:id="@+id/btn_date_add_fav"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="收藏"
-            android:background="@drawable/btn_purple"/>
-
-        <Button
-            android:id="@+id/btn_date_random_fav"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="收藏随机"
-            android:background="@drawable/btn_purple"/>
-
-        <Button
-            android:id="@+id/btn_date_random_all"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="纯随机"
-            android:background="@drawable/btn_purple"/>
+            android:text="🎲 随机组合地点+项目"
+            android:background="@drawable/btn_primary"
+            android:textColor="@android:color/white"
+            android:layout_margin="16dp"
+            android:padding="12dp" />
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btn_back"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="返回"
-        android:background="@drawable/btn_purple"
-        android:layout_marginTop="10dp"/>
-
-</LinearLayout>
+</FrameLayout>

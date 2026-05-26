@@ -31,6 +31,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
+    implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
@@ -39,4 +40,8 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("com.google.code.gson:gson:2.10.1")
+    implementation("androidx.cardview:cardview:1.0.0")
+    implementation("com.squareup.okhttp3:okhttp:4.10.0") // 和风天气官方推荐
+    implementation("com.google.android.material:material:1.9.0")
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
 }

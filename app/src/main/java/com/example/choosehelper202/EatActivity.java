@@ -1,129 +1,43 @@
 package com.example.choosehelper202;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.RadioGroup;
-import android.widget.Toast;
+import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import androidx.viewpager2.widget.ViewPager2;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class EatActivity extends AppCompatActivity {
-
-    RadioGroup rgTabs;
-    Button btnAdd, btnRandom, btnAddFav, btnRandomFav, btnBack;
-    android.widget.ListView lvList;
-    android.widget.TextView tvTitle;
-    android.widget.EditText etInput;
-    android.widget.ArrayAdapter<String> adapter;
-    ArrayList<String> list = new ArrayList<>();
-
-    SharedPreferences sp;
-    ArrayList<String> favList = new ArrayList<>();
+    private TabLayout tabLayout;
+    private ViewPager2 viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eat);
 
-        tvTitle = findViewById(R.id.tv_title);
-        lvList = findViewById(R.id.lv_list);
-        etInput = findViewById(R.id.et_input);
-        btnAdd = findViewById(R.id.btn_add);
-        btnRandom = findViewById(R.id.btn_random);
-        btnAddFav = findViewById(R.id.btn_add_fav);
-        btnRandomFav = findViewById(R.id.btn_random_fav);
-        btnBack = findViewById(R.id.btn_back);
-        rgTabs = findViewById(R.id.rg_tabs);
+        ImageView bg = findViewById(R.id.bg);
+        BgUtil.setGlobalBg(this, bg);
 
-        adapter = new android.widget.ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
-        lvList.setAdapter(adapter);
+        tabLayout = findViewById(R.id.tabLayout);
+        viewPager = findViewById(R.id.viewPager);
 
-        sp = getSharedPreferences("eat_fav", MODE_PRIVATE);
-        loadFav();
+        List<String> tabTitles = Arrays.asList("早餐", "午餐", "晚餐", "奶茶", "咖啡", "果汁", "茶饮");
+        List<RandomListFragment> fragments = new ArrayList<>();
 
-        initBreakfast();
+        fragments.add(RandomListFragment.newInstance("breakfast", new ArrayList<>(Arrays.asList("牛奶+麦片", "豆浆+油条", "粥+包子", "三明治", "煎饼果子"))));
+        fragments.add(RandomListFragment.newInstance("lunch", new ArrayList<>(Arrays.asList("米饭+炒菜", "面条", "盖浇饭", "沙拉", "披萨"))));
+        fragments.add(RandomListFragment.newInstance("dinner", new ArrayList<>(Arrays.asList("火锅", "烧烤", "日料", "家常菜", "轻食"))));
+        fragments.add(RandomListFragment.newInstance("milk_tea", new ArrayList<>(Arrays.asList("珍珠奶茶", "椰奶茶", "芋泥波波", "四季春茶"))));
+        fragments.add(RandomListFragment.newInstance("coffee", new ArrayList<>(Arrays.asList("美式", "拿铁", "卡布奇诺", "摩卡"))));
+        fragments.add(RandomListFragment.newInstance("juice", new ArrayList<>(Arrays.asList("橙汁", "苹果汁", "西瓜汁", "芒果汁"))));
+        fragments.add(RandomListFragment.newInstance("tea", new ArrayList<>(Arrays.asList("红茶", "绿茶", "乌龙茶", "花茶"))));
 
-        rgTabs.setOnCheckedChangeListener((group, id) -> {
-            if (id == R.id.rb_breakfast) initBreakfast();
-            else if (id == R.id.rb_lunch) initLunch();
-            else if (id == R.id.rb_dinner) initDinner();
-            else if (id == R.id.rb_drink) initDrink();
-        });
-
-        btnAdd.setOnClickListener(v -> {
-            String s = etInput.getText().toString().trim();
-            if (!s.isEmpty()) {
-                list.add(s);
-                adapter.notifyDataSetChanged();
-                etInput.setText("");
-            }
-        });
-
-        btnRandom.setOnClickListener(v -> {
-            if (!list.isEmpty()) {
-                int i = (int) (Math.random() * list.size());
-                tvTitle.setText("结果：" + list.get(i));
-            }
-        });
-
-        btnAddFav.setOnClickListener(v -> {
-            String res = tvTitle.getText().toString().replace("结果：", "").trim();
-            if (res.isEmpty()) {
-                Toast.makeText(this, "请先随机食物", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (!favList.contains(res)) {
-                favList.add(res);
-                saveFav();
-                Toast.makeText(this, "收藏成功", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        btnRandomFav.setOnClickListener(v -> {
-            if (favList.isEmpty()) {
-                Toast.makeText(this, "收藏为空", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            int i = (int) (Math.random() * favList.size());
-            tvTitle.setText("收藏随机：" + favList.get(i));
-        });
-
-        btnBack.setOnClickListener(v -> finish());
-    }
-
-    private void initBreakfast() {
-        list.clear();
-        list.add("包子"); list.add("豆浆"); list.add("油条"); list.add("粥");
-        adapter.notifyDataSetChanged();
-    }
-
-    private void initLunch() {
-        list.clear();
-        list.add("米饭"); list.add("面条"); list.add("盖浇饭"); list.add("快餐");
-        adapter.notifyDataSetChanged();
-    }
-
-    private void initDinner() {
-        list.clear();
-        list.add("火锅"); list.add("烧烤"); list.add("炒菜"); list.add("轻食");
-        adapter.notifyDataSetChanged();
-    }
-
-    private void initDrink() {
-        list.clear();
-        list.add("奶茶"); list.add("咖啡"); list.add("果汁"); list.add("茶饮");
-        adapter.notifyDataSetChanged();
-    }
-
-    private void loadFav() {
-        String json = sp.getString("fav", "[]");
-        favList = new Gson().fromJson(json, new TypeToken<ArrayList<String>>() {}.getType());
-    }
-
-    private void saveFav() {
-        sp.edit().putString("fav", new Gson().toJson(favList)).apply();
+        EatPagerAdapter adapter = new EatPagerAdapter(this, fragments, tabTitles);
+        viewPager.setAdapter(adapter);
+        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> tab.setText(tabTitles.get(position))).attach();
     }
 }

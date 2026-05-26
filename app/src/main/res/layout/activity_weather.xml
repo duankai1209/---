@@ -1,41 +1,225 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="20dp"
-    android:background="#f0f8ff">
+    android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/et_city"
+    <ImageView
+        android:id="@+id/bg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="输入城市名称"
-        android:background="@drawable/et_bg"
-        android:padding="12dp"/>
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
 
-    <Button
-        android:id="@+id/btn_query"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="查询天气"
-        android:background="@drawable/btn_purple"
-        android:layout_marginTop="10dp"/>
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:background="#AA000000">
 
-    <TextView
-        android:id="@+id/tv_result"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textSize="18sp"
-        android:lineSpacingExtra="8dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
 
-    <TextView
-        android:id="@+id/tv_cloth_suggest"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textSize="16sp"
-        android:textColor="#6a0dad"/>
+            <!-- 城市搜索栏 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
 
-</LinearLayout>
+                <EditText
+                    android:id="@+id/et_city"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="输入城市名"
+                    android:background="@drawable/et_bg"
+                    android:padding="12dp"
+                    android:textColorHint="#CCCCCC"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/btn_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="搜索"
+                    android:background="@drawable/btn_primary"
+                    android:textColor="@android:color/white"
+                    android:layout_marginStart="8dp" />
+
+                <Button
+                    android:id="@+id/btn_get_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📍"
+                    android:background="@drawable/btn_primary"
+                    android:textColor="@android:color/white"
+                    android:layout_marginStart="8dp" />
+            </LinearLayout>
+
+            <!-- 城市名称 -->
+            <TextView
+                android:id="@+id/tv_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="北京"
+                android:textSize="28sp"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <!-- 温度 -->
+            <TextView
+                android:id="@+id/tv_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--℃"
+                android:textSize="56sp"
+                android:textColor="#FFE082"
+                android:layout_marginBottom="8dp" />
+
+            <!-- 天气状况 -->
+            <TextView
+                android:id="@+id/tv_weather"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--"
+                android:textSize="24sp"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="4dp" />
+
+            <!-- 风向风力 -->
+            <TextView
+                android:id="@+id/tv_wind"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="--"
+                android:textSize="16sp"
+                android:textColor="#DDDDDD"
+                android:layout_marginBottom="12dp" />
+
+            <!-- 湿度 + 紫外线 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:id="@+id/tv_humidity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="💧 湿度 --%"
+                    android:textSize="16sp"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginEnd="24dp" />
+
+                <TextView
+                    android:id="@+id/tv_uv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="☀️ 紫外线 --"
+                    android:textSize="16sp"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+
+            <!-- 未来三天预报 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    <TextView
+                        android:id="@+id/tv_day1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="明天"
+                        android:textSize="14sp"
+                        android:textColor="#FFFFFF" />
+                    <TextView
+                        android:id="@+id/tv_temp1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="--"
+                        android:textSize="14sp"
+                        android:textColor="#CCCCCC" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    <TextView
+                        android:id="@+id/tv_day2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="后天"
+                        android:textSize="14sp"
+                        android:textColor="#FFFFFF" />
+                    <TextView
+                        android:id="@+id/tv_temp2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="--"
+                        android:textSize="14sp"
+                        android:textColor="#CCCCCC" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+                    <TextView
+                        android:id="@+id/tv_day3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="大后天"
+                        android:textSize="14sp"
+                        android:textColor="#FFFFFF" />
+                    <TextView
+                        android:id="@+id/tv_temp3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="--"
+                        android:textSize="14sp"
+                        android:textColor="#CCCCCC" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 穿搭建议 -->
+            <TextView
+                android:id="@+id/tv_advice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="👕 穿搭建议：加载中..."
+                android:textSize="15sp"
+                android:textColor="#FFFFFF"
+                android:background="#88000000"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- 跳转到穿搭界面按钮 -->
+            <Button
+                android:id="@+id/btn_to_cloth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="👗 根据当前天气推荐穿搭"
+                android:background="@drawable/btn_purple"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>
