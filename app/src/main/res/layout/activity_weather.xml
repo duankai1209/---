@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -33,11 +34,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:hint="输入城市名"
+                    android:hint="输入城市名，例如 北京"
                     android:background="@drawable/et_bg"
                     android:padding="12dp"
+                    android:textSize="16sp"
+                    android:textColor="#FFFFFF"
                     android:textColorHint="#CCCCCC"
-                    android:textColor="#FFFFFF" />
+                    android:inputType="textCapWords" />
 
                 <Button
                     android:id="@+id/btn_search"
@@ -58,158 +61,198 @@
                     android:layout_marginStart="8dp" />
             </LinearLayout>
 
-            <!-- 城市名称 -->
-            <TextView
-                android:id="@+id/tv_city"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="北京"
-                android:textSize="28sp"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp" />
-
-            <!-- 温度 -->
-            <TextView
-                android:id="@+id/tv_temp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="--℃"
-                android:textSize="56sp"
-                android:textColor="#FFE082"
-                android:layout_marginBottom="8dp" />
-
-            <!-- 天气状况 -->
-            <TextView
-                android:id="@+id/tv_weather"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="--"
-                android:textSize="24sp"
-                android:textColor="#FFFFFF"
-                android:layout_marginBottom="4dp" />
-
-            <!-- 风向风力 -->
-            <TextView
-                android:id="@+id/tv_wind"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="--"
-                android:textSize="16sp"
-                android:textColor="#DDDDDD"
-                android:layout_marginBottom="12dp" />
-
-            <!-- 湿度 + 紫外线 -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="16dp">
-
-                <TextView
-                    android:id="@+id/tv_humidity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="💧 湿度 --%"
-                    android:textSize="16sp"
-                    android:textColor="#FFFFFF"
-                    android:layout_marginEnd="24dp" />
-
-                <TextView
-                    android:id="@+id/tv_uv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="☀️ 紫外线 --"
-                    android:textSize="16sp"
-                    android:textColor="#FFFFFF" />
-            </LinearLayout>
-
-            <!-- 未来三天预报 -->
-            <LinearLayout
+            <!-- 当前天气卡片 -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp"
-                android:gravity="center">
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="#88000000">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:orientation="vertical"
+                    android:padding="16dp"
                     android:gravity="center">
+
                     <TextView
-                        android:id="@+id/tv_day1"
+                        android:id="@+id/tv_city"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="明天"
-                        android:textSize="14sp"
-                        android:textColor="#FFFFFF" />
+                        android:text="北京"
+                        android:textSize="28sp"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold" />
+
                     <TextView
-                        android:id="@+id/tv_temp1"
+                        android:id="@+id/tv_temp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="--℃"
+                        android:textSize="56sp"
+                        android:textColor="#FFE082"
+                        android:layout_marginTop="8dp" />
+
+                    <TextView
+                        android:id="@+id/tv_weather"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="--"
-                        android:textSize="14sp"
-                        android:textColor="#CCCCCC" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-                    <TextView
-                        android:id="@+id/tv_day2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="后天"
-                        android:textSize="14sp"
+                        android:textSize="24sp"
                         android:textColor="#FFFFFF" />
+
                     <TextView
-                        android:id="@+id/tv_temp2"
+                        android:id="@+id/tv_wind"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="--"
-                        android:textSize="14sp"
-                        android:textColor="#CCCCCC" />
-                </LinearLayout>
+                        android:textSize="16sp"
+                        android:textColor="#DDDDDD"
+                        android:layout_marginTop="4dp" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-                    <TextView
-                        android:id="@+id/tv_day3"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="大后天"
-                        android:textSize="14sp"
-                        android:textColor="#FFFFFF" />
-                    <TextView
-                        android:id="@+id/tv_temp3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="--"
-                        android:textSize="14sp"
-                        android:textColor="#CCCCCC" />
-                </LinearLayout>
-            </LinearLayout>
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp">
 
-            <!-- 穿搭建议 -->
-            <TextView
-                android:id="@+id/tv_advice"
+                        <TextView
+                            android:id="@+id/tv_humidity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="💧 湿度 --%"
+                            android:textSize="16sp"
+                            android:textColor="#FFFFFF"
+                            android:layout_marginEnd="24dp" />
+
+                        <TextView
+                            android:id="@+id/tv_uv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="☀️ 紫外线 --"
+                            android:textSize="16sp"
+                            android:textColor="#FFFFFF" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 未来三天预报卡片 -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="👕 穿搭建议：加载中..."
-                android:textSize="15sp"
-                android:textColor="#FFFFFF"
-                android:background="#88000000"
-                android:padding="12dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="#88000000">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="12dp"
+                    android:gravity="center">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <TextView
+                            android:id="@+id/tv_day1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="明天"
+                            android:textSize="16sp"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/tv_temp1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="--"
+                            android:textSize="14sp"
+                            android:textColor="#CCCCCC"
+                            android:layout_marginTop="4dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <TextView
+                            android:id="@+id/tv_day2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="后天"
+                            android:textSize="16sp"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/tv_temp2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="--"
+                            android:textSize="14sp"
+                            android:textColor="#CCCCCC"
+                            android:layout_marginTop="4dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <TextView
+                            android:id="@+id/tv_day3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="大后天"
+                            android:textSize="16sp"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/tv_temp3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="--"
+                            android:textSize="14sp"
+                            android:textColor="#CCCCCC"
+                            android:layout_marginTop="4dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 穿搭建议卡片 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="#88000000">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/tv_advice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="👕 穿搭建议：加载中..."
+                        android:textSize="15sp"
+                        android:textColor="#FFFFFF"
+                        android:gravity="center" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
             <!-- 跳转到穿搭界面按钮 -->
             <Button
@@ -218,7 +261,9 @@
                 android:layout_height="wrap_content"
                 android:text="👗 根据当前天气推荐穿搭"
                 android:background="@drawable/btn_purple"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                android:padding="12dp"
+                android:textSize="16sp" />
 
         </LinearLayout>
     </ScrollView>
